@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class UpdateReceiver extends BroadcastReceiver {
         String message = sp.getString("message", "Not found");
         String phone = sp.getString("phone", "Not found");
         String notification = phone + ": " + message;
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phone, null, message, null, null);
         Toast t = Toast.makeText(context, notification, Toast.LENGTH_SHORT);
         t.show();
     }
